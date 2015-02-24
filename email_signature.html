@@ -42,7 +42,7 @@
 				return false;
 			};
 
-			function bind(name, fallback) {
+			function bind(name, fallback, notify) {
 				input[name] = document.querySelector('[name=' + name + ']');
 				input[name].onchange = input[name].oninput = function (e) {
 					var text = input[name].value;
@@ -50,7 +50,7 @@
 						auto = !text;
 					}
 					if (!text) {
-						text = fallback;
+						text = typeof fallback === 'function' ? fallback() : fallback;
 					} else if (name === 'name' && auto) {
 						input['email'].value = text.toLowerCase().replace(/ /g, '.') + '@enernoc.com';
 						input['email'].oninput();
@@ -64,9 +64,10 @@
 					}
 					output[name].textContent = text;
 					source.textContent = preview.innerHTML.replace(/^\s+/, '').replace(/\n\s+/g, '\n');
+					if (notify) {
+						input[notify].oninput();
+					}
 				};
-				// handle auto-filled fields on page reload
-				input[name].oninput();
 			}
 			var input = {};
 			var output = {
@@ -78,13 +79,19 @@
 				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)')
 			};
 
-			// need to bind email first, since name will auto-fill it
-			bind('email', 'bob.loblaw@enernoc.com');
 			bind('name', 'Bob Loblaw');
+			bind('email', 'bob.loblaw@enernoc.com');
 			bind('title', 'Legal Counsel');
-			bind('address');
-			bind('office', '+1 (778) 331 0500');
+			bind('address', null, 'office');
+			bind('office', function () {
+				return /Vancouver/.test(input['address'].value) ? '+1 (778) 331 0500' : '+1 (617) 224 9900'
+			});
 			bind('mobile', '+1 (604) 555 0199');
+
+			// handle auto-filled inputs on page reload
+			Object.keys(input).forEach(function (key) {
+				input[key].oninput();
+			});
 		};
 	</script>
 </head>
