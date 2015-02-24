@@ -17,7 +17,7 @@
 			padding: 0.3em;
 		}
 		.sig-inputs-wrapper {
-			margin-bottom: 20px;
+
 		}
 		.sig-preview-wrapper {
 			padding: 0.3em;
@@ -26,20 +26,64 @@
 			margin-bottom: 40px;
 		}
 	</style>
+	<script>
+		window.onload = function () {
+			var auto = true;
+
+			function bind(name, fallback) {
+				input[name] = document.querySelector('input[name=' + name + ']');
+				input[name].oninput = function (e) {
+					var text = input[name].value;
+					if (name === 'email' && e) {
+						auto = !text;
+					}
+					if (!text) {
+						text = fallback;
+					} else if (name === 'name' && auto) {
+						input['email'].value = text.toLowerCase().replace(/ /g, '.') + '@enernoc.com';
+						input['email'].oninput();
+					}
+					if (input[name].type === 'tel') {
+						output[name].href = 'tel:' + encodeURIComponent(text);
+						output[name].setAttribute('value', text.replace(/[^+0-9]/g, ''));
+					}
+					if (input[name].type === 'email') {
+						output[name].href = 'sendto:' + text;
+					}
+					output[name].textContent = text;
+				};
+				// handle auto-filled fields on page reload
+				input[name].oninput();
+			}
+			var input = {};
+			var output = {
+				name: document.querySelector('.sig-preview div:nth-of-type(1) > strong'),
+				title: document.querySelector('.sig-preview div:nth-of-type(1) > span'),
+				office: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(1)'),
+				mobile: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(2)'),
+				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)')
+			};
+
+			// need to bind email first, since name will auto-fill it
+			bind('email', 'tyler.fawcett@enernoc.com');
+			bind('name', 'Tyler Fawcett');
+			bind('title', 'Creative Director, Utility Solutions');
+			bind('office', '+1 (778) 331 0500');
+			bind('mobile', '+1 (604) 719 5055');
+		};
+	</script>
 </head>
 <body>
 
-<div class="signature-inputs-wrapper">
-	<input type="text" size="30" class="sig-input" name="" value="" placeholder="First name" spellcheck="false"><br>
-	<input type="text" size="30" class="sig-input" name="" value="" placeholder="Last name" spellcheck="false"><br>
-	<input type="text" size="40" class="sig-input" name="" value="" placeholder="Title"><br>
+<div class="sig-inputs-wrapper">
+	<input type="text" size="30" class="sig-input" name="name" value="" placeholder="Name" spellcheck="false"><br>
+	<input type="text" size="40" class="sig-input" name="title" value="" placeholder="Title"><br>
 <!-- 	<select class="sig-input">
 		<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
 	</select><br> -->
-	<input type="tel" size="20" class="sig-input" name="" value="" placeholder="Office #"><br>
-	<input type="tel" size="20" class="sig-input" name="" value="" placeholder="Mobile #"><br>
-	<input type="tel" size="20" class="sig-input" name="" value="" placeholder="Fax #"><br>
-	<input type="email" size="60" class="sig-input" name="" value="" placeholder="Email">
+	<input type="tel" size="20" class="sig-input" name="office" value="" placeholder="Office #"><br>
+	<input type="tel" size="20" class="sig-input" name="mobile" value="" placeholder="Mobile #"><br>
+	<input type="email" size="60" class="sig-input" name="email" value="" placeholder="Email">
 </div>
 
 <div class="sig-preview-wrapper">
