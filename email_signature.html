@@ -90,14 +90,16 @@
 			});
 			bind('mobile', '+1 (604) 555 0199');
 
-			var button = document.querySelector('#sig-copy-button');
+			var buttons = document.querySelectorAll('#sig-preview-button, #sig-source-button');
 			ZeroClipboard.config({
 				forceEnhancedClipboard: true
 			});
 			ZeroClipboard.on('error', function () {
-				button.style.display = 'none';
+				for (var i = 0; i < buttons.length; i++) {
+					buttons[i].style.display = 'none'
+				}
 			});
-			var clip = new ZeroClipboard(button);
+			var clip = new ZeroClipboard(buttons);
 			clip.on('copy', function (event) {
 				var clipboard = event.clipboardData;
 				clipboard.setData('text/plain', source.value);
@@ -173,7 +175,7 @@
 
 	<div class="sig-source-wrapper">
 		<textarea cols="60" rows="4" class="sig-source" spellcheck="false"></textarea>
-		<button id="sig-copy-button">Copy HTML to clipboard</button>
+		<button id="sig-source-button">Copy HTML to clipboard</button>
 	</div>
 
 </body>
