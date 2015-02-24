@@ -43,8 +43,8 @@
 			};
 
 			function bind(name, fallback) {
-				input[name] = document.querySelector('input[name=' + name + ']');
-				input[name].oninput = function (e) {
+				input[name] = document.querySelector('[name=' + name + ']');
+				input[name].onchange = input[name].oninput = function (e) {
 					var text = input[name].value;
 					if (name === 'email' && e) {
 						auto = !text;
@@ -72,6 +72,7 @@
 			var output = {
 				name: document.querySelector('.sig-preview div:nth-of-type(1) > strong'),
 				title: document.querySelector('.sig-preview div:nth-of-type(1) > span'),
+				address: document.querySelector('.sig-preview div:nth-of-type(2)'),
 				office: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(1)'),
 				mobile: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(2)'),
 				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)')
@@ -81,6 +82,7 @@
 			bind('email', 'tyler.fawcett@enernoc.com');
 			bind('name', 'Tyler Fawcett');
 			bind('title', 'Creative Director, Utility Solutions');
+			bind('address');
 			bind('office', '+1 (778) 331 0500');
 			bind('mobile', '+1 (604) 719 5055');
 		};
@@ -91,9 +93,10 @@
 <div class="sig-inputs-wrapper">
 	<input type="text" size="30" class="sig-input" name="name" value="" placeholder="Name" spellcheck="false"><br>
 	<input type="text" size="40" class="sig-input" name="title" value="" placeholder="Title"><br>
-<!-- 	<select class="sig-input">
+	<select class="sig-input" name="address">
 		<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
-	</select><br> -->
+		<option>EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
+	</select><br>
 	<input type="tel" size="20" class="sig-input" name="office" value="" placeholder="Office #"><br>
 	<input type="tel" size="20" class="sig-input" name="mobile" value="" placeholder="Mobile #"><br>
 	<input type="email" size="60" class="sig-input" name="email" value="" placeholder="Email">
