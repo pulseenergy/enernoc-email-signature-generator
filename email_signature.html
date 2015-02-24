@@ -7,27 +7,22 @@
 	<meta name="description" content="this github page">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
-		body, input {
-			font: .9em/1.4 arial, sans-serif;
-			color: dimgray;
-		}
-		.sig-input {
-			margin-bottom: 5px;
-			width: auto;
-			padding: 0.3em;
-		}
-		.sig-inputs-wrapper {
-
-		}
-		.sig-preview-wrapper {
-			padding: 0.3em;
-		}
-		.sig-preview {
-			margin-bottom: 40px;
-		}
-		.sig-source {
-			padding: 0.3em;
-		}
+		body {font: 11px/1.4 arial, sans-serif; color: #333; text-align: center;}
+		.container {width: 600px; margin: 40px auto; text-align: left;}
+		fieldset {padding: 0; border: 0; margin: 0;}
+		fieldset > p {margin: 0;}
+		legend {display: none;}
+		input {outline: none; box-sizing: border-box;}
+		.label {width: 60px; display: inline-block; padding: 0.3em 0; margin-top: 2px;}
+		.sig-input {margin-bottom: 5px;	width: auto; padding: 0.3em;}
+		.sig-inputs-wrapper {	}
+		.sig-preview-wrapper {padding: 0.3em;}
+		.sig-preview {}
+		.sig-source {padding: 0.3em;}
+		h3 {background: #eee; padding: .3em .5em; color: #999; font-weight: normal; margin: 30px 0 5px; font-size: 11px;}
+		hr {border: 0; border-top: 1px solid #ddd; margin: 20px 0;}
+		textarea {width: 100%; height: 120px; border: 1px solid #ddd; outline: none; box-sizing: border-box;}
+		button {margin-top: 20px;}
 	</style>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
 	<script>
@@ -87,9 +82,9 @@
 				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)')
 			};
 
-			bind('name', 'Bob Loblaw');
-			bind('email', 'bob.loblaw@enernoc.com');
-			bind('title', 'Legal Counsel');
+			bind('name', 'Michael Ellis');
+			bind('email', 'michael.ellis@enernoc.com');
+			bind('title', 'Widget Supervisor');
 			bind('address', null, 'office');
 			bind('office', function () {
 				return /Vancouver/.test(input['address'].value) ? '+1 (778) 331 0500' : '+1 (617) 224 9900'
@@ -119,31 +114,69 @@
 </head>
 <body>
 
-<div class="sig-inputs-wrapper">
-	<input type="text" size="30" class="sig-input" name="name" value="" placeholder="Name" spellcheck="false"><br>
-	<input type="text" size="40" class="sig-input" name="title" value="" placeholder="Title"><br>
-	<select class="sig-input" name="address">
-		<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
-		<option>EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
-	</select><br>
-	<input type="tel" size="20" class="sig-input" name="office" value="" placeholder="Office #"><br>
-	<input type="tel" size="20" class="sig-input" name="mobile" value="" placeholder="Mobile #"><br>
-	<input type="email" size="60" class="sig-input" name="email" value="" placeholder="Email">
-</div>
+<div class="container">
 
-<div class="sig-preview-wrapper">
-	<div class="sig-preview">
-		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999; padding-top: 30px;"><strong style="color: #003e74;">Bob Loblaw</strong> / <span style="color: #003e74;">Legal Counsel</span></div>
-		<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div>
-		<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / <a href="mailto:bob.loblaw@enernoc.com" style="color: #003e74; text-decoration: none;">bob.loblaw@enernoc.com</a></div>
-		<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div>
+	<fieldset class="sig-inputs-wrapper">
+		<legend>Email signature details</legend>
+		<p>
+			<label for="name">
+				<span class="label">Name:</span>
+				<input type="text" size="30" class="sig-input" name="name" value="" spellcheck="false" placeholder="Michael Ellis">
+			</label>
+		</p>
+		<p>
+			<label for="title">
+				<span class="label">Title:</span>
+				<input type="text" size="30" class="sig-input" name="title" value="" placeholder="Widget Supervisor">
+			</label>
+		</p>
+		<p>
+			<label for="address">
+				<span class="label">Address:</span>
+				<select class="sig-input" name="address">
+					<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
+					<option>EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="office">
+				<span class="label">Office #:</span>
+				<input type="tel" size="20" class="sig-input" name="office" value="" maxlength="10" placeholder="7783310500">
+			</label>
+		</p>
+		<p>
+			<label for="mobile">
+				<span class="label">Mobile #:</span>
+				<input type="tel" size="20" class="sig-input" name="mobile" value="" maxlength="10" placeholder="6045550199">
+			</label>
+		</p>
+		<p>
+			<label for="email">
+				<span class="label">Email:</span>
+				<input type="email" size="40" class="sig-input" name="email" value="" placeholder="michael.ellis@enernoc.com">
+			</label>
+		</p>
+	</fieldset>
+
+	<h3>Preview:</h3>
+
+	<div class="sig-preview-wrapper">
+		<div class="sig-preview">
+			<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999; padding-top: 20px;"><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div>
+			<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div>
+			<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / <a href="mailto:bob.loblaw@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div>
+			<div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a>
+		</div>
+		<button id="sig-preview-button">Copy signature to clipboard</button>
 	</div>
-</div>
 
-<div class="sig-source-wrapper">
-	<button id="sig-copy-button">Copy to clipboard</button><br>
-	<textarea cols="60" rows="4" class="sig-source" spellcheck="false"></textarea>
-</div>
+	<h3>HTML:</h3>
+
+	<div class="sig-source-wrapper">
+		<textarea cols="60" rows="4" class="sig-source" spellcheck="false"></textarea>
+		<button id="sig-copy-button">Copy HTML to clipboard</button>
+	</div>
 
 </body>
 </html>
