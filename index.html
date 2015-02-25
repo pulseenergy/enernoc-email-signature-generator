@@ -23,6 +23,7 @@
 		hr {border: 0; border-top: 1px solid #ddd; margin: 20px 0 0;}
 		textarea {width: 100%; height: 120px; border: 1px solid #ddd; outline: none; box-sizing: border-box;}
 		button {margin-top: 20px; cursor: pointer;}
+		.copy-success {color: forestgreen; display: inline-block; margin-left: 10px;}
 	</style>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
 	<script>
@@ -150,7 +151,13 @@
 		<p>
 			<label for="mobile">
 				<span class="label">Mobile #:</span>
-				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value="" maxlength="10" placeholder="6045550199">
+				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value="" maxlength="10" placeholder="6045550199"> <input type="checkbox" checked>Include
+			</label>
+		</p>
+		<p>
+			<label for="fax">
+				<span class="label">Fax #:</span>
+				<input type="tel" size="20" class="sig-input" id="fax" name="fax" value="" maxlength="10" placeholder="7783310501"> <input type="checkbox">Include
 			</label>
 		</p>
 		<p>
@@ -164,11 +171,11 @@
 	<h3>Preview:</h3>
 
 	<div class="sig-preview">
-		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999; padding-top: 20px;"><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / <a href="mailto:bob.loblaw@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div>
+		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999; padding-top: 20px;"><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div>
 	</div>
 
 	<button id="sig-copy-button">Copy to clipboard</button>
-
+	<span class="copy-success">&#10004; Copied to clipboard</span>
 
 	<h3>HTML:</h3>
 	<textarea cols="60" rows="4" class="sig-source" spellcheck="false"></textarea>
