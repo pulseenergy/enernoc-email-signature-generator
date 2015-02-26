@@ -23,7 +23,8 @@
 		hr {border: 0; border-top: 1px solid #ddd; margin: 20px 0 0;}
 		textarea {width: 100%; height: 120px; border: 1px solid #ddd; outline: none; box-sizing: border-box;}
 		button {margin-top: 20px; cursor: pointer;}
-		.copy-success {color: forestgreen; display: inline-block; margin-left: 10px;}
+		.copy-success {color: forestgreen; display: inline-block; margin-left: 10px; visibility: hidden; opacity: 0; transition: opacity 0.5s, visibility 0.5s;}
+		.copy-success.visible {opacity: 1; visibility: visible; transition-duration: 0s;}
 	</style>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
 	<script>
@@ -31,6 +32,7 @@
 			var auto = true;
 			var preview = document.querySelector('.sig-preview');
 			var source = document.querySelector('.sig-source');
+			var success = document.querySelector('.copy-success');
 
 			source.onfocus = function () {
 				source.select();
@@ -54,7 +56,7 @@
 					}
 					if (input[name].type === 'tel') {
 						// format phone numbers consistently
-						var stripped = text.replace(/[-+.() ]/g, '');
+						var stripped = text.replace(/[-.() ]/g, '');
 						var match = stripped.match(/^(\+1)?(\d{3})(\d{3})(\d{4})$/);
 						if (match) {
 							text = ['+1 ', '(' + match[2] + ')', match[3], match[4]].join(' ');
@@ -69,7 +71,9 @@
 					output[name].textContent = text;
 					source.textContent = preview.innerHTML.replace(/^\s+/, '').replace(/\n\s+/g, '\n');
 					if (notify) {
-						input[notify].oninput();
+						notify.forEach(function (n) {
+							input[n].oninput();
+						});
 					}
 				};
 			}
@@ -80,17 +84,21 @@
 				address: document.querySelector('.sig-preview div:nth-of-type(2)'),
 				office: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(1)'),
 				mobile: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(2)'),
-				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)')
+				fax: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)'),
+				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(4)')
 			};
 
 			bind('name', 'Michael Ellis');
 			bind('email', 'michael.ellis@enernoc.com');
 			bind('title', 'Widget Supervisor');
-			bind('address', null, 'office');
+			bind('address', null, ['office', 'fax']);
 			bind('office', function () {
 				return /Vancouver/.test(input['address'].value) ? '+1 (778) 331 0500' : '+1 (617) 224 9900'
 			});
 			bind('mobile', '+1 (604) 555 0199');
+			bind('fax', function () {
+				return /Vancouver/.test(input['address'].value) ? '7783310501' : '+1 617 224 9910';
+			});
 
 			var button = document.querySelector('#sig-copy-button');
 			ZeroClipboard.config({
@@ -98,13 +106,19 @@
 			});
 			ZeroClipboard.on('error', function () {
 				button.style.display = 'none';
-				source.style.display = 'block';
+				success.style.display = 'none';
 			});
 			var clip = new ZeroClipboard(button);
+			var hide;
 			clip.on('copy', function (event) {
 				var clipboard = event.clipboardData;
 				clipboard.setData('text/plain', source.value);
 				clipboard.setData('text/html', source.value);
+				success.classList.add('visible');
+				clearTimeout(hide);
+				hide = setTimeout(function () {
+					success.classList.remove('visible');
+				}, 3000);
 			});
 
 			// handle auto-filled inputs on page reload
