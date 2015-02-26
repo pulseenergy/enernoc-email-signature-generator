@@ -41,7 +41,7 @@
 				return false;
 			};
 
-			function bind(name, fallback, notify) {
+			function bindInput(name, fallback, notify) {
 				input[name] = document.querySelector('[name=' + name + ']');
 				input[name].onchange = input[name].oninput = function (e) {
 					var text = input[name].value;
@@ -88,17 +88,54 @@
 				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(4)')
 			};
 
-			bind('name', 'Michael Ellis');
-			bind('email', 'michael.ellis@enernoc.com');
-			bind('title', 'Widget Supervisor');
-			bind('address', null, ['office', 'fax']);
-			bind('office', function () {
+			bindInput('name', 'Michael Ellis');
+			bindInput('email', 'michael.ellis@enernoc.com');
+			bindInput('title', 'Widget Supervisor');
+			bindInput('address', null, ['office', 'fax']);
+			bindInput('office', function () {
 				return /Vancouver/.test(input['address'].value) ? '+1 (778) 331 0500' : '+1 (617) 224 9900'
 			});
-			bind('mobile', '+1 (604) 555 0199');
-			bind('fax', function () {
+			bindInput('mobile', '+1 (604) 555 0199');
+			bindInput('fax', function () {
 				return /Vancouver/.test(input['address'].value) ? '7783310501' : '+1 617 224 9910';
 			});
+
+			function insertAfter(previous, node) {
+				if (previous.nextSibling) {
+					previous.parentNode.insertBefore(node, previous.nextSibling);
+				} else {
+					previous.parentNode.appendChild(node);
+				}
+			}
+
+			function bindToggle(name) {
+				var checkbox = input[name].parentNode.querySelector('[type="checkbox"]');
+				var orphan = null;
+				checkbox.onchange = function () {
+					if (checkbox.checked) {
+						if (orphan) {
+							insertAfter(orphan.anchor, orphan.node);
+							if (orphan.text) {
+								orphan.anchor.textContent = orphan.text;
+							}
+							orphan = null;
+						}
+					} else {
+						var removed = output[name];
+						var previous = removed.previousSibling;
+						removed.parentNode.removeChild(removed);
+						orphan = { anchor: previous, node: removed };
+						if (previous.nodeType === 3) {
+							orphan.text = previous.textContent;
+							previous.textContent = '';
+						}
+					}
+				};
+				checkbox.onchange();
+			}
+
+			bindToggle('mobile');
+			bindToggle('fax');
 
 			var button = document.querySelector('#sig-copy-button');
 			ZeroClipboard.config({
@@ -165,13 +202,13 @@
 		<p>
 			<label for="mobile">
 				<span class="label">Mobile #:</span>
-				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value="" maxlength="10" placeholder="6045550199"> <input type="checkbox" checked>Include
+				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value="" maxlength="10" placeholder="6045550199"> <label><input type="checkbox" checked>Include</label>
 			</label>
 		</p>
 		<p>
 			<label for="fax">
 				<span class="label">Fax #:</span>
-				<input type="tel" size="20" class="sig-input" id="fax" name="fax" value="" maxlength="10" placeholder="7783310501"> <input type="checkbox">Include
+				<input type="tel" size="20" class="sig-input" id="fax" name="fax" value="" maxlength="10" placeholder="7783310501"> <label><input type="checkbox">Include</label>
 			</label>
 		</p>
 		<p>
