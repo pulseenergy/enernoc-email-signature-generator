@@ -8,14 +8,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		body {font: 11px/1.4 Arial, sans-serif; color: #333; text-align: center; -webkit-font-smoothing: antialiased;}
-		.container {width: 600px; margin: 40px auto; text-align: left;}
-		fieldset {padding: 0; border: 0; margin: 20px 0 0;}
-		label, button {-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
-		h1 {font-size: 13px;}
-		fieldset > p {margin: 0;}
-		legend {display: none;}
+		.container {width: 700px; margin: 30px auto; text-align: left;}
+		fieldset {padding: 12px 15px; border: 1px solid #eee; margin: 20px 0 0;}
+		fieldset, label, button, h3 {-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
+		h1 {font-size: 13px; margin-bottom: 0;}
+		h4 {margin: 0;}
+		fieldset p {margin: 0;}
+		fieldset legend {display: block; font-weight: bold; padding: 0 6px; margin-left: -8px;}
 		input {outline: none; box-sizing: border-box;}
-		.label {width: 70px; display: inline-block; padding: 0.3em 0; margin-top: 2px;}
+		.label {width: 80px; display: inline-block; padding: 0.3em 0; margin-top: 2px;}
 		.sig-input {margin-bottom: 5px;	width: auto; padding: 0.3em;}
 		.sig-inputs-wrapper {}
 		.sig-preview {}
@@ -170,9 +171,9 @@
 
 <div class="container">
 	<h1>EnerNOC email signature generator</h1>
-	<hr>
+	<h3>Details:</h3>
 	<fieldset class="sig-inputs-wrapper">
-		<legend>Email signature details</legend>
+		<legend>Personal</legend>
 		<p>
 			<label for="name">
 				<span class="label">Name:</span>
@@ -189,8 +190,49 @@
 			<label for="address">
 				<span class="label">Address:</span>
 				<select class="sig-input" id="address" name="address">
-					<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
-					<option>EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
+					<optgroup label="Corporate Headquarters">
+						<option>EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
+					</optgroup>
+					<optgroup label="US">
+						<option>EnerNOC, Inc. / 1414 Key Highway, Suite 200-M, Baltimore, MD 22130</option>
+						<option>EnerNOC, Inc. / Boise Research Center, 5771 N. Discovery Way, Boise, ID 83713</option>
+						<option>EnerNOC, Inc. / President's Plaza, 8700 W. Bryn Mawr Ave, Suite 650 North, Chicago, IL 60631</option>
+						<option>EnerNOC, Inc. / 725 Cool Springs Blvd, Suite 600, Franklin, TN 37067</option>
+						<option>EnerNOC, Inc. / 10 Corporate Park, Suite 120, Irvine, CA 92606</option>
+						<option>EnerNOC, Inc. / 100 Park Avenue, Suite 1600, New York, NY 10017</option>
+						<option>EnerNOC, Inc. / 625 Southwest Stark Street, Suite 446, Portland, OR 97205-3719</option>
+						<option>EnerNOC, Inc. / 116 New Montgomery Street, Suite 700, San Francisco, CA 94105</option>
+					<optgroup label="Canada">
+						<option>EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
+						<option>EnerNOC, Inc. / 1000-888 Third Street SW, Bankers Hall, Calgary, AB T2P 5C5</option>
+						<option>EnerNOC, Inc. / 11-1155 North Service Road West, Oakville, ON L6M 3E3</option>
+						<option>EnerNOC, Inc. / 275 Slater Street, Suite 900, Ottawa, ON K1P 5H9</option>
+					</optgroup>
+					<optgroup label="South America">
+						<option>EnerNOC, Inc. / Rua: Gustavo Magalhaes, 114 CEP: 18030-225, Jardim Faculdade-Sorocaba/SP</option>
+					</optgroup>
+					<optgroup label="Europe">
+						<option>EnerNOC, Inc. / Reinhardstr. 47, 10117 Berlin</option>
+						<option>EnerNOC, Inc. / Post Office Box 58, Mainzer Landtr. 49, D-60329 Frankfurt am Main</option>
+						<option>EnerNOC, Inc. / Claudius-Keller Str. 3c, 81669 Munich</option>
+						<option>EnerNOC, Inc. / Fitzwilliam Business Center, 77 Sir John Rogerson's Quay, Dublin 2</option>
+						<option>EnerNOC, Inc. / No 3 The Bourse Boar Lane, Leeds LS1 5EN</option>
+						<option>EnerNOC, Inc. / 360-364 City Road, London EC1V 2PY</option>
+						<option>EnerNOC, Inc. / Seefeldstr. 4, CH-8008 Zürich</option>
+					</optgroup>
+					<optgroup label="Australia and New Zealand">
+						<option>EnerNOC, Inc. / 535 Bourke Street, Level 18, Melbourne VIC 3000</option>
+						<option>EnerNOC, Inc. / Building E, Level 1, 661 Newcastle Street, Leederville WA 6007</option>
+						<option>EnerNOC, Inc. / Unit 1, 89 Winton Road, Joondalup, Perth, WA 6027</option>
+						<option>EnerNOC, Inc. / Suite 805, 70 Pitt Street, Sydney NSW 2000</option>
+						<option>EnerNOC, Inc. / 2 Collina Terrace, PO Box 12-202 Thorndon, Wellington NZ 6144</option>
+					</optgroup>
+					<optgroup label="Asia">
+						<option>EnerNOC, Inc. / 17 G Hai Xing Plaza, 1 Rui Jin Road S, Shanghai 200023</option>
+						<option>EnerNOC, Inc. / B-25, Jaywant Ind. Estate, 62 Tardeo Road, Mumbai 400034</option>
+						<option>EnerNOC, Inc. / 4-2 Ohtemachi 1-Chome, Chiyoda-ku, Tokyo 100-8088</option>
+						<option>EnerNOC, Inc. / 7F AIA Tower, Tongil-ro 2-gil, Jung-gu, Seoul, South Korea</option>
+					</optgroup>
 				</select>
 			</label>
 		</p>
@@ -220,10 +262,32 @@
 		</p>
 	</fieldset>
 
+	<fieldset class="tagline-inputs">
+		<legend>Tagline</legend>
+		<p>
+			<label for="tagline">
+				<span class="label">Text:</span>
+				<input type="text" size="60" class="sig-input" id="tagline" name="tagline" value="" placeholder="EnerNOC has a tagline"> <label><input type="checkbox">Include</label>
+			</label>
+		</p>
+		<p>
+			<label for="tagline-link">
+				<span class="label">Link text:</span>
+				<input type="text" size="20" class="sig-input" id="tagline-link" name="tagline-link" value="" placeholder="Read more"> <label><input type="checkbox">Include</label>
+			</label>
+		</p>
+		<p>
+			<label for="tagline-link">
+				<span class="label">Link target:</span>
+				http:// <input type="text" size="70" class="sig-input" id="tagline-link-dest" name="tagline-link-dest" value="" placeholder="www.enernoc.com">
+			</label>
+		</p>
+	</fieldset>
+
 	<h3>Preview:</h3>
 
 	<div class="sig-preview">
-		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div>
+		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a><br><br><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">&#187; EnerNOC has a tagline: <a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">Read more</a></div></div>
 	</div>
 
 	<button id="sig-copy-button">Copy to clipboard</button>
