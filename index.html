@@ -65,6 +65,7 @@
 					if (input[name].type === 'tel') {
 						if (!text) {
 							text = '+1 (555) 555 0199';
+							placeholder = true;
 						}
 						// format phone numbers consistently
 						var stripped = text.replace(/[-.() ]/g, '');
@@ -228,48 +229,48 @@
 				<span class="label">Address:</span>
 				<select class="sig-input" id="address" name="address">
 					<optgroup label="Corporate Headquarters">
-						<option data-office="+1 (617) 224 9900" data-fax="+1 617 224 9910">EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
+						<option data-office="+1 617 224 9900" data-fax="+1 617 224 9910">EnerNOC, Inc. / One Marina Park Drive, Suite 400, Boston, MA 02210</option>
 					</optgroup>
 					<optgroup label="US">
-						<option>EnerNOC, Inc. / 1414 Key Highway, Suite 200-M, Baltimore, MD 22130</option>
-						<option>EnerNOC, Inc. / Boise Research Center, 5771 N. Discovery Way, Boise, ID 83713</option>
-						<option>EnerNOC, Inc. / President's Plaza, 8700 W. Bryn Mawr Ave, Suite 650 North, Chicago, IL 60631</option>
-						<option>EnerNOC, Inc. / 725 Cool Springs Blvd, Suite 600, Franklin, TN 37067</option>
-						<option>EnerNOC, Inc. / 10 Corporate Park, Suite 120, Irvine, CA 92606</option>
-						<option>EnerNOC, Inc. / 100 Park Avenue, Suite 1600, New York, NY 10017</option>
-						<option>EnerNOC, Inc. / 625 Southwest Stark Street, Suite 446, Portland, OR 97205-3719</option>
-						<option>EnerNOC, Inc. / 116 New Montgomery Street, Suite 700, San Francisco, CA 94105</option>
+						<option data-office="+1 443 524 2880" data-fax="+1 443 524 2887">EnerNOC, Inc. / 1414 Key Highway, Suite 200-M, Baltimore, MD 22130</option>
+						<option data-office="+1 208 947 9503" data-fax="">EnerNOC, Inc. / Boise Research Center, 5771 N. Discovery Way, Boise, ID 83713</option>
+						<option data-office="+1 773 724 4000" data-fax="+1 847 745 0423">EnerNOC, Inc. / President's Plaza, 8700 W. Bryn Mawr Ave, Suite 650 North, Chicago, IL 60631</option>
+						<option data-office="+1 615 732 6151" data-fax="+1 615 732 6101">EnerNOC, Inc. / 725 Cool Springs Blvd, Suite 600, Franklin, TN 37067</option>
+						<option data-office="+1 949 851 2100" data-fax="+1 949 851 5136">EnerNOC, Inc. / 10 Corporate Park, Suite 120, Irvine, CA 92606</option>
+						<option data-office="+1 617 224 9900" data-fax="+1 212 624 0001">EnerNOC, Inc. / 100 Park Avenue, Suite 1600, New York, NY 10017</option>
+						<option data-office="+1 503 224 9506" data-fax="">EnerNOC, Inc. / 625 Southwest Stark Street, Suite 446, Portland, OR 97205-3719</option>
+						<option data-office="+1 415 343 9500" data-fax="+1 415 227 1645">EnerNOC, Inc. / 116 New Montgomery Street, Suite 700, San Francisco, CA 94105</option>
 					</optgroup>
 					<optgroup label="Canada">
-						<option data-office="+1 (778) 331 0500" data-fax="7783310501">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
-						<option>EnerNOC, Inc. / 1000-888 Third Street SW, Bankers Hall, Calgary, AB T2P 5C5</option>
-						<option>EnerNOC, Inc. / 11-1155 North Service Road West, Oakville, ON L6M 3E3</option>
-						<option>EnerNOC, Inc. / 275 Slater Street, Suite 900, Ottawa, ON K1P 5H9</option>
+						<option data-office="+1 403 444 6639" data-fax="">EnerNOC, Inc. / 1000-888 Third Street SW, Bankers Hall, Calgary, AB T2P 5C5</option>
+						<option data-office="+1 416 800 0948" data-fax="+1 289 291 4001">EnerNOC, Inc. / 11-1155 North Service Road West, Oakville, ON L6M 3E3</option>
+						<option data-office="+1 613 567 5115" data-fax="+1 613 482 4722">EnerNOC, Inc. / 275 Slater Street, Suite 900, Ottawa, ON K1P 5H9</option>
+						<option data-office="+1 778 331 0500" data-fax="+1 778 331 0501">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
 					</optgroup>
 					<optgroup label="South America">
-						<option>EnerNOC, Inc. / Rua: Gustavo Magalhaes, 114 CEP: 18030-225, Jardim Faculdade-Sorocaba/SP</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Rua: Gustavo Magalhaes, 114 CEP: 18030-225, Jardim Faculdade-Sorocaba/SP</option>
 					</optgroup>
 					<optgroup label="Europe">
-						<option>EnerNOC, Inc. / Reinhardstr. 47, 10117 Berlin</option>
-						<option>EnerNOC, Inc. / Post Office Box 58, Mainzer Landtr. 49, D-60329 Frankfurt am Main</option>
-						<option>EnerNOC, Inc. / Claudius-Keller Str. 3c, 81669 Munich</option>
-						<option>EnerNOC, Inc. / Fitzwilliam Business Center, 77 Sir John Rogerson's Quay, Dublin 2</option>
-						<option>EnerNOC, Inc. / No 3 The Bourse Boar Lane, Leeds LS1 5EN</option>
-						<option>EnerNOC, Inc. / 360-364 City Road, London EC1V 2PY</option>
-						<option>EnerNOC, Inc. / Seefeldstr. 4, CH-8008 Zürich</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Reinhardstr. 47, 10117 Berlin</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Post Office Box 58, Mainzer Landtr. 49, D-60329 Frankfurt am Main</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Claudius-Keller Str. 3c, 81669 Munich</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Fitzwilliam Business Center, 77 Sir John Rogerson's Quay, Dublin 2</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / No 3 The Bourse Boar Lane, Leeds LS1 5EN</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 360-364 City Road, London EC1V 2PY</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Seefeldstr. 4, CH-8008 Zürich</option>
 					</optgroup>
 					<optgroup label="Australia and New Zealand">
-						<option>EnerNOC, Inc. / 535 Bourke Street, Level 18, Melbourne VIC 3000</option>
-						<option>EnerNOC, Inc. / Building E, Level 1, 661 Newcastle Street, Leederville WA 6007</option>
-						<option>EnerNOC, Inc. / Unit 1, 89 Winton Road, Joondalup, Perth, WA 6027</option>
-						<option>EnerNOC, Inc. / Suite 805, 70 Pitt Street, Sydney NSW 2000</option>
-						<option>EnerNOC, Inc. / 2 Collina Terrace, PO Box 12-202 Thorndon, Wellington NZ 6144</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 535 Bourke Street, Level 18, Melbourne VIC 3000</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Building E, Level 1, 661 Newcastle Street, Leederville WA 6007</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Unit 1, 89 Winton Road, Joondalup, Perth, WA 6027</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / Suite 805, 70 Pitt Street, Sydney NSW 2000</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 2 Collina Terrace, PO Box 12-202 Thorndon, Wellington NZ 6144</option>
 					</optgroup>
 					<optgroup label="Asia">
-						<option>EnerNOC, Inc. / 17 G Hai Xing Plaza, 1 Rui Jin Road S, Shanghai 200023</option>
-						<option>EnerNOC, Inc. / B-25, Jaywant Ind. Estate, 62 Tardeo Road, Mumbai 400034</option>
-						<option>EnerNOC, Inc. / 4-2 Ohtemachi 1-Chome, Chiyoda-ku, Tokyo 100-8088</option>
-						<option>EnerNOC, Inc. / 7F AIA Tower, Tongil-ro 2-gil, Jung-gu, Seoul, South Korea</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 17 G Hai Xing Plaza, 1 Rui Jin Road S, Shanghai 200023</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / B-25, Jaywant Ind. Estate, 62 Tardeo Road, Mumbai 400034</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 4-2 Ohtemachi 1-Chome, Chiyoda-ku, Tokyo 100-8088</option>
+						<option data-office="" data-fax="">EnerNOC, Inc. / 7F AIA Tower, Tongil-ro 2-gil, Jung-gu, Seoul, South Korea</option>
 					</optgroup>
 				</select>
 			</label>
