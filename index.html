@@ -8,20 +8,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		body {font: 11px/1.4 Arial, sans-serif; color: #333; text-align: center; -webkit-font-smoothing: antialiased;}
-		.container {width: 700px; margin: 30px auto; text-align: left;}
+		.container {width: 760px; margin: 30px auto; text-align: left;}
 		fieldset {padding: 12px 15px; border: 1px solid #e8e8e8; margin: 20px 0 0;}
 		fieldset, label, button, h3 {-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
+		/*input::-webkit-input-placeholder {color: #333;}
+		input:-moz-placeholder {color: #333;}
+		input::-moz-placeholder {color: #333;}
+		input:-ms-input-placeholder {color: #333;}*/
 		h1 {font-size: 13px; margin-bottom: 0;}
+		h3 {background: #eee; padding: .3em .5em; color: #999; font-weight: normal; margin: 30px 0 0; font-size: 11px;}
 		h4 {margin: 0;}
 		fieldset p {margin: 0;}
 		fieldset legend {display: block; font-weight: normal; padding: 0 6px; margin-left: -8px; color: #999;}
 		input {outline: none; box-sizing: border-box;}
-		.label {width: 80px; display: inline-block; padding: 0.3em 0; margin-top: 2px;}
+		.label {width: 100px; display: inline-block; padding: 0.3em 0; margin-top: 2px; font-weight: bold;}
 		.sig-input {margin-bottom: 5px;	width: auto; padding: 0.3em;}
 		.sig-inputs-wrapper {}
 		.sig-preview {}
 		.sig-source {padding: 0.3em; margin: 20px 0 0; font-size: 11px; font-family: courier new, monospace;}
-		h3 {background: #eee; padding: .3em .5em; color: #999; font-weight: normal; margin: 30px 0 0; font-size: 11px;}
 		hr {border: 0; border-top: 1px solid #ddd; margin: 20px 0 0;}
 		textarea {width: 100%; height: 120px; border: 1px solid #ddd; outline: none; box-sizing: border-box;}
 		button {margin-top: 20px; cursor: pointer;}
@@ -302,7 +306,7 @@
 	</fieldset>
 
 	<fieldset class="tagline-inputs">
-		<legend>Tagline</legend>
+		<legend>Tagline <label></legend>
 		<p>
 			<label for="tagline-text">
 				<span class="label">Text:</span>
