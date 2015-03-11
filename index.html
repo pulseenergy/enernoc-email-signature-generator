@@ -43,6 +43,10 @@
 				return false;
 			};
 
+			function updateSource() {
+				source.textContent = preview.innerHTML.replace(/^\s+/, '').replace(/\n\s+/g, '\n');
+			}
+
 			function bindInput(name, fallback, notify) {
 				input[name] = document.querySelector('[name=' + name + ']');
 				input[name].onchange = input[name].oninput = function (e) {
@@ -53,7 +57,7 @@
 					}
 					if (!text) {
 						text = typeof fallback === 'function' ? fallback() : fallback;
-						placeholder = true;
+						placeholder = !!text;
 					} else if (name === 'name' && auto) {
 						input['email'].value = text.toLowerCase().replace(/ /g, '.') + '@enernoc.com';
 						input['email'].oninput();
@@ -78,8 +82,12 @@
 					if (placeholder) {
 						input[name].setAttribute('placeholder', text);
 					}
-					output[name].textContent = text;
-					source.textContent = preview.innerHTML.replace(/^\s+/, '').replace(/\n\s+/g, '\n');
+					if (name === 'tagline-link-dest') {
+						output[name].href = 'http://' + text;
+					} else {
+						output[name].textContent = text;
+					}
+					updateSource();
 					if (notify) {
 						notify.forEach(function (n) {
 							input[n].oninput();
@@ -95,7 +103,10 @@
 				office: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(1)'),
 				mobile: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(2)'),
 				fax: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(3)'),
-				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(4)')
+				email: document.querySelector('.sig-preview div:nth-of-type(3) > a:nth-of-type(4)'),
+				'tagline-text': document.querySelector('.sig-preview div:nth-of-type(5) > :first-child').nextSibling, // can't css for a text node
+				'tagline-link': document.querySelector('.sig-preview div:nth-of-type(5) > a'),
+				'tagline-link-dest': document.querySelector('.sig-preview div:nth-of-type(5) > a')
 			};
 
 			bindInput('name', 'Michael Ellis');
@@ -113,6 +124,12 @@
 				var option = address.options[address.selectedIndex];
 				return option.getAttribute("data-fax");
 			});
+			bindInput('tagline-text', 'EnerNOC has a tagline');
+			bindInput('tagline-link', 'Read more');
+			bindInput('tagline-link-dest', 'www.enernoc.com');
+
+			output['tagline-text'].parentNode.insertBefore(document.createTextNode('» '), output['tagline-text']);
+			insertAfter(output['tagline-text'], document.createTextNode(': '));
 
 			function insertAfter(previous, node) {
 				if (previous.nextSibling) {
@@ -122,7 +139,7 @@
 				}
 			}
 
-			function bindToggle(name) {
+			function bindToggle(name, hideParent) {
 				var checkbox = input[name].parentNode.querySelector('[type="checkbox"]');
 				var orphan = null;
 				checkbox.onchange = function () {
@@ -136,6 +153,9 @@
 						}
 					} else {
 						var removed = output[name];
+						if (hideParent) {
+							removed = removed.parentNode;
+						}
 						var previous = removed.previousSibling;
 						removed.parentNode.removeChild(removed);
 						orphan = { anchor: previous, node: removed };
@@ -144,12 +164,15 @@
 							previous.textContent = '';
 						}
 					}
+					updateSource();
 				};
 				checkbox.onchange();
 			}
 
 			bindToggle('mobile');
 			bindToggle('fax');
+			bindToggle('tagline-link');
+			bindToggle('tagline-text', true);
 
 			var button = document.querySelector('#sig-copy-button');
 			ZeroClipboard.config({
@@ -214,6 +237,7 @@
 						<option>EnerNOC, Inc. / 100 Park Avenue, Suite 1600, New York, NY 10017</option>
 						<option>EnerNOC, Inc. / 625 Southwest Stark Street, Suite 446, Portland, OR 97205-3719</option>
 						<option>EnerNOC, Inc. / 116 New Montgomery Street, Suite 700, San Francisco, CA 94105</option>
+					</optgroup>
 					<optgroup label="Canada">
 						<option data-office="+1 (778) 331 0500" data-fax="7783310501">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</option>
 						<option>EnerNOC, Inc. / 1000-888 Third Street SW, Bankers Hall, Calgary, AB T2P 5C5</option>
@@ -277,21 +301,21 @@
 	<fieldset class="tagline-inputs">
 		<legend>Tagline</legend>
 		<p>
-			<label for="tagline">
+			<label for="tagline-text">
 				<span class="label">Text:</span>
-				<input type="text" size="60" class="sig-input" id="tagline" name="tagline" value="" placeholder="EnerNOC has a tagline"> <label><input type="checkbox">Include</label>
+				<input type="text" size="60" class="sig-input" id="tagline-text" name="tagline-text" value=""> <label><input type="checkbox">Include</label>
 			</label>
 		</p>
 		<p>
 			<label for="tagline-link">
 				<span class="label">Link text:</span>
-				<input type="text" size="20" class="sig-input" id="tagline-link" name="tagline-link" value="" placeholder="Read more"> <label><input type="checkbox">Include</label>
+				<input type="text" size="20" class="sig-input" id="tagline-link" name="tagline-link" value=""> <label><input type="checkbox">Include</label>
 			</label>
 		</p>
 		<p>
-			<label for="tagline-link">
+			<label for="tagline-link-dest">
 				<span class="label">Link target:</span>
-				http:// <input type="text" size="70" class="sig-input" id="tagline-link-dest" name="tagline-link-dest" value="" placeholder="www.enernoc.com">
+				http:// <input type="text" size="70" class="sig-input" id="tagline-link-dest" name="tagline-link-dest" value="">
 			</label>
 		</p>
 	</fieldset>
@@ -299,7 +323,7 @@
 	<h3>Preview:</h3>
 
 	<div class="sig-preview">
-		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a><br><br><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">&#187; EnerNOC has a tagline: <a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">Read more</a></div></div>
+		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><br>&#187; EnerNOC has a tagline: <a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">Read more</a></div>
 	</div>
 
 	<button id="sig-copy-button">Copy to clipboard</button>
