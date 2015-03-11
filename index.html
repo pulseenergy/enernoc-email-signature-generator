@@ -116,13 +116,13 @@
 			bindInput('office', function () {
 				var address = input['address'];
 				var option = address.options[address.selectedIndex];
-				return option.getAttribute("data-office");
+				return option.getAttribute('data-office');
 			});
 			bindInput('mobile');
 			bindInput('fax', function () {
 				var address = input['address'];
 				var option = address.options[address.selectedIndex];
-				return option.getAttribute("data-fax");
+				return option.getAttribute('data-fax');
 			});
 			bindInput('tagline-text', 'EnerNOC has a tagline');
 			bindInput('tagline-link', 'Read more');
@@ -199,6 +199,8 @@
 			Object.keys(input).forEach(function (key) {
 				input[key].oninput();
 			});
+
+			input['name'].focus();
 		};
 	</script>
 </head>
