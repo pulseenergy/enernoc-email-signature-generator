@@ -2,7 +2,9 @@
 
 Generates uniformly-styled email signatures for EnerNOC employees.
 
-This is a blunt tool. Please [create issues](https://github.com/pulseenergy/enernoc-email-signature-generator/issues) for  missing functionality, bugs, and other annoyances. 
+We acknowledge that this is a blunt tool at the moment, but plan to iterate as feedback surfaces.
+
+Please [create issues](https://github.com/pulseenergy/enernoc-email-signature-generator/issues) for bugs, annoyances, observations, etc. 
 
 ------
 
