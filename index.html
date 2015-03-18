@@ -85,7 +85,7 @@
 					if (input[name].type === 'email') {
 						output[name].href = 'sendto:' + text;
 					}
-					if (placeholder) {
+					if (placeholder && input[name].getAttribute('placeholder') !== text) {
 						input[name].setAttribute('placeholder', text);
 					}
 					if (name === 'tagline-link-dest') {
