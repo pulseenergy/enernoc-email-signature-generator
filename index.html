@@ -38,9 +38,7 @@
 	<script>
 		window.onload = function () {
 			var auto = {
-				email: true,
-				office: true,
-				fax: true
+				email: true
 			};
 			var preview = document.querySelector('.sig-preview');
 			var source = document.querySelector('.sig-source');
@@ -87,14 +85,10 @@
 					}
 					if (name === 'address') {
 						var selected = input['address'].options[input['address'].selectedIndex];
-						if (auto['office']) {
-							input['office'].value = formatPhoneNumber(selected.getAttribute('data-office'));
-							input['office'].oninput();
-						}
-						if (auto['fax']) {
-							input['fax'].value = formatPhoneNumber(selected.getAttribute('data-fax'));
-							input['fax'].oninput();
-						}
+						input['office'].value = formatPhoneNumber(selected.getAttribute('data-office'));
+						input['office'].oninput();
+						input['fax'].value = formatPhoneNumber(selected.getAttribute('data-fax'));
+						input['fax'].oninput();
 					}
 					if (name === 'email') {
 						var check = auto['email'] && !placeholder;
