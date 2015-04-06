@@ -57,6 +57,18 @@
 				source.textContent = preview.innerHTML.replace(/^\s+/, '').replace(/\n\s+/g, '\n');
 			}
 
+			function formatPhoneNumber(text) {
+				if (!text) {
+					text = '';
+				}
+				var stripped = text.replace(/[-.() ]/g, '');
+				var match = stripped.match(/^(\+1)?(\d{3})(\d{3})(\d{4})$/);
+				if (match) {
+					text = ['+1', '(' + match[2] + ')', match[3], match[4]].join(' ');
+				}
+				return text;
+			}
+
 			function bindInput(name, fallback) {
 				input[name] = document.querySelector('[name=' + name + ']');
 				input[name].onchange = input[name].oninput = function (e) {
@@ -76,27 +88,18 @@
 					if (name === 'address') {
 						var selected = input['address'].options[input['address'].selectedIndex];
 						if (auto['office']) {
-							input['office'].value = selected.getAttribute('data-office');
+							input['office'].value = formatPhoneNumber(selected.getAttribute('data-office'));
 							input['office'].oninput();
 						}
 						if (auto['fax']) {
-							input['fax'].value = selected.getAttribute('data-fax');
+							input['fax'].value = formatPhoneNumber(selected.getAttribute('data-fax'));
 							input['fax'].oninput();
 						}
 					}
 					if (input[name].type === 'tel') {
 						// format phone numbers consistently
-						if (!text) {
-							text = '';
-						}
-						var stripped = text.replace(/[-.() ]/g, '');
-						var match = stripped.match(/^(\+1)?(\d{3})(\d{3})(\d{4})$/);
-						if (match) {
-							text = ['+1', '(' + match[2] + ')', match[3], match[4]].join(' ');
-							stripped = ['+1', match[2], match[3], match[4]].join('');
-						}
+						text = formatPhoneNumber(text);
 						output[name].href = 'tel:' + encodeURIComponent(text);
-						output[name].setAttribute('value', stripped);
 					}
 					if (input[name].type === 'email') {
 						output[name].href = 'sendto:' + text;
@@ -148,19 +151,17 @@
 				}
 			}
 
-			function bindToggle(name, hideParent) {
-				var checkbox = input[name].parentNode.querySelector('[type="checkbox"]');
+			function toggler(name, hideParent) {
 				var orphan = null;
-				checkbox.onchange = function () {
-					if (checkbox.checked) {
-						if (orphan) {
+				return function (show) {
+					if (show && orphan) {
 							insertAfter(orphan.anchor, orphan.node);
 							if (orphan.text) {
 								orphan.anchor.textContent = orphan.text;
 							}
 							orphan = null;
-						}
-					} else {
+					}
+					if (!show && !orphan) {
 						var removed = output[name];
 						if (hideParent) {
 							removed = removed.parentNode;
@@ -174,12 +175,29 @@
 						}
 					}
 					updateSource();
+				}
+			}
+
+			function bindToggle(name, hideParent) {
+				var t = toggler(name, hideParent);
+				var checkbox = input[name].parentNode.querySelector('[type="checkbox"]');
+				checkbox.onchange = function () {
+					t(checkbox.checked);
 				};
 				checkbox.onchange();
 			}
 
-			bindToggle('mobile');
-			bindToggle('fax');
+			function autoToggle(name) {
+				var t = toggler(name);
+				var old = input[name].oninput;
+				input[name].oninput = function () {
+					old.apply(this, arguments);
+					t(!!input[name].value);
+				}
+			}
+
+			autoToggle('mobile');
+			autoToggle('fax');
 			bindToggle('tagline-link');
 			bindToggle('tagline-text', true);
 
@@ -296,13 +314,13 @@
 		<p>
 			<label for="mobile">
 				<span class="label">Mobile #:</span>
-				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value=""> <label><input type="checkbox">Include</label>
+				<input type="tel" size="20" class="sig-input" id="mobile" name="mobile" value="">
 			</label>
 		</p>
 		<p>
 			<label for="fax">
 				<span class="label">Fax #:</span>
-				<input type="tel" size="20" class="sig-input" id="fax" name="fax" value=""> <label><input type="checkbox">Include</label>
+				<input type="tel" size="20" class="sig-input" id="fax" name="fax" value="">
 			</label>
 		</p>
 		<p>
@@ -338,7 +356,7 @@
 	<h3>Preview:</h3>
 
 	<div class="sig-preview">
-		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" value="+17783310500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" value="+16045550199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" value="+17783310501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><br>&#187; EnerNOC - Get more from energy <a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">Read more</a></div>
+		<div style="font-family: arial, sans-serif; font-size: 13px; line-height: 1.3; color: #999999;">&nbsp;<br>&nbsp;<br><strong style="color: #003e74;">Michael Ellis</strong> / <span style="color: #003e74;">Widget Supervisor</span></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">EnerNOC, Inc. / 576 Seymour Street, Suite 600, Vancouver, BC V6B 3K1</div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;">t: <a href="tel:%2B1%20%28778%29%20331%200500" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0500</a> / m: <a href="tel:%2B1%20%28604%29%20555%200199" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (604) 555 0199</a> / f: <a href="tel:%2B1%20%28778%29%20331%200501" style="color: #999999; font-family: arial, sans-serif; text-decoration: none;">+1 (778) 331 0501</a> / <a href="mailto:michael.ellis@enernoc.com" style="color: #003e74; text-decoration: none;">michael.ellis@enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">www.enernoc.com</a> / <a href="http://energysmart.enernoc.com" style="color: #003e74; text-decoration: none;">energysmart.enernoc.com</a></div><div style="font-family: arial, sans-serif; font-size: 12px; line-height: 1.3; color: #999999;"><br>&#187; EnerNOC - Get more from energy <a href="http://www.enernoc.com" style="color: #003e74; text-decoration: none;">Read more</a></div>
 	</div>
 
 	<button id="sig-copy-button" class="if-zeroclipboard-enabled">Copy to clipboard</button>
