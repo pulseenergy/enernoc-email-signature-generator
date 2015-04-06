@@ -96,6 +96,10 @@
 							input['fax'].oninput();
 						}
 					}
+					if (name === 'email') {
+						var check = auto['email'] && !placeholder;
+						document.querySelector('.check-email').style.visibility = check ? 'visible' : 'hidden';
+					}
 					if (input[name].type === 'tel') {
 						// format phone numbers consistently
 						text = formatPhoneNumber(text);
