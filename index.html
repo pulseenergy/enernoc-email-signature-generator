@@ -37,7 +37,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
 	<script>
 		window.onload = function () {
-			var auto = true;
+			var auto = {
+				email: true,
+			};
 			var preview = document.querySelector('.sig-preview');
 			var source = document.querySelector('.sig-source');
 			var success = document.querySelector('.copy-success');
@@ -58,14 +60,15 @@
 				input[name].onchange = input[name].oninput = function (e) {
 					var placeholder = false;
 					var text = input[name].value;
-					if (name === 'email' && e) {
-						auto = !text;
+					if (auto.hasOwnProperty(name) && e) {
+						auto[name] = !text;
 					}
 					if (!text) {
 						text = typeof fallback === 'function' ? fallback() : fallback;
 						placeholder = !!text;
-					} else if (name === 'name' && auto) {
-						input['email'].value = text.toLowerCase().replace(/ /g, '.') + '@enernoc.com';
+					}
+					if (name === 'name' && auto['email']) {
+						input['email'].value = placeholder ? '' : (text.toLowerCase().replace(/ /g, '.') + '@enernoc.com');
 						input['email'].oninput();
 					}
 					if (input[name].type === 'tel') {
