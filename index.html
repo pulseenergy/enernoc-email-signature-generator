@@ -11,6 +11,7 @@
 		.container {width: 760px; margin: 30px auto; text-align: left;}
 		fieldset {padding: 12px 15px; border: 1px solid #e8e8e8; margin: 20px 0 0;}
 		fieldset, label, button, h3 {-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
+		fieldset.closed > p { display: none; }
 		/*input::-webkit-input-placeholder {color: #333;}
 		input:-moz-placeholder {color: #333;}
 		input::-moz-placeholder {color: #333;}
@@ -150,7 +151,7 @@
 				}
 			}
 
-			function toggler(name, hideParent) {
+			function toggler(removed) {
 				var orphan = null;
 				return function (show) {
 					if (show && orphan) {
@@ -161,10 +162,6 @@
 							orphan = null;
 					}
 					if (!show && !orphan) {
-						var removed = output[name];
-						if (hideParent) {
-							removed = removed.parentNode;
-						}
 						var previous = removed.previousSibling;
 						removed.parentNode.removeChild(removed);
 						orphan = { anchor: previous, node: removed };
@@ -177,17 +174,17 @@
 				}
 			}
 
-			function bindToggle(name, hideParent) {
-				var t = toggler(name, hideParent);
-				var checkbox = input[name].parentNode.querySelector('[type="checkbox"]');
+			function bindToggle(checkbox, hide, fn) {
+				var t = toggler(hide);
 				checkbox.onchange = function () {
 					t(checkbox.checked);
+					fn && fn(checkbox.checked);
 				};
 				checkbox.onchange();
 			}
 
 			function autoToggle(name) {
-				var t = toggler(name);
+				var t = toggler(output[name]);
 				var old = input[name].oninput;
 				input[name].oninput = function () {
 					old.apply(this, arguments);
@@ -197,8 +194,13 @@
 
 			autoToggle('mobile');
 			autoToggle('fax');
-			bindToggle('tagline-link');
-			bindToggle('tagline-text', true);
+
+			bindToggle(document.querySelector('#toggle-tagline-link'), output['tagline-link']);
+
+			var taglineInputs = document.querySelector('.tagline-inputs');
+			bindToggle(document.querySelector('#toggle-tagline'), output['tagline-text'].parentNode, function (checked) {
+				taglineInputs.classList[checked ? 'remove' : 'add']('closed');
+			});
 
 			var button = document.querySelector('#sig-copy-button');
 			if (typeof ZeroClipboard !== 'undefined') {
@@ -331,7 +333,7 @@
 	</fieldset>
 
 	<fieldset class="tagline-inputs">
-		<legend>Tagline <label><input type="checkbox">Include</label></legend>
+		<legend>Tagline <label><input id="toggle-tagline" type="checkbox">Include</label></legend>
 		<p>
 			<label for="tagline-text">
 				<span class="label">Text:</span>
@@ -341,7 +343,7 @@
 		<p>
 			<label for="tagline-link">
 				<span class="label">Link text:</span>
-				<input type="text" size="20" class="sig-input" id="tagline-link" name="tagline-link" value=""> <label><input type="checkbox">Include</label>
+				<input type="text" size="20" class="sig-input" id="tagline-link" name="tagline-link" value=""> <label><input id="toggle-tagline-link" type="checkbox">Include</label>
 			</label>
 		</p>
 		<p>
