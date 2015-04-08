@@ -19,9 +19,10 @@
 		h3 {background: #eee; padding: .3em .5em; color: #999; font-weight: normal; margin: 30px 0 0; font-size: 11px;}
 		h4 {margin: 0;}
 		fieldset p {margin: 0;}
-		fieldset legend {display: block; font-weight: normal; padding: 0 6px; margin-left: -8px; color: #999;}
+		fieldset legend {display: block; font-weight: bold; padding: 0 6px; margin-left: -8px;}
+		fieldset legend label {font-weight: normal; margin-left: 5px;}
 		input {outline: none; box-sizing: border-box;}
-		.check-email {display: inline-block; margin-left: 10px;}
+		.check-email {color: #003e74; display: inline-block; margin-left: 10px;}
 		.label {width: 100px; display: inline-block; padding: 0.3em 0; margin-top: 2px; font-weight: bold;}
 		.sig-input {margin-bottom: 5px;	width: auto; padding: 0.3em;}
 		.sig-inputs-wrapper {}
@@ -324,17 +325,17 @@
 		<p>
 			<label for="email">
 				<span class="label">Email:</span>
-				<input type="email" size="40" class="sig-input" id="email" name="email" value="" placeholder="michael.ellis@enernoc.com"><span class="check-email">&#8592; You may want to double-check this.</span>
+				<input type="email" size="40" class="sig-input" id="email" name="email" value="" placeholder="michael.ellis@enernoc.com"><span class="check-email">&#8592; Probably a good idea to double-check this.</span>
 			</label>
 		</p>
 	</fieldset>
 
 	<fieldset class="tagline-inputs">
-		<legend>Tagline</legend>
+		<legend>Tagline <label><input type="checkbox">Include</label></legend>
 		<p>
 			<label for="tagline-text">
 				<span class="label">Text:</span>
-				<input type="text" size="60" class="sig-input" id="tagline-text" name="tagline-text" value=""> <label><input type="checkbox">Include</label>
+				<input type="text" size="60" class="sig-input" id="tagline-text" name="tagline-text" value="">
 			</label>
 		</p>
 		<p>
