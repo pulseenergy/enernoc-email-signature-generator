@@ -14,7 +14,7 @@
 		fieldset, label, button, h3 {-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 		fieldset.closed > p {display: none;}
 		h1 {font-size: 13px; margin-bottom: 0;}
-		h3 {background: #003e74; padding: .3em .5em; color: #fff; font-weight: bold; margin: 0 0 30px; font-size: 11px; border-radius: 2px;}
+		h3 {background: #003e74; padding: .3em .5em; color: #fff; font-weight: bold; margin: 0 0 25px; font-size: 11px; border-radius: 2px;}
 		h4 {margin: 0;}
 		fieldset p {margin: 0;}
 		fieldset legend {display: block; font-weight: bold; padding: 0 6px; margin-left: -8px;}
@@ -25,7 +25,7 @@
 		.sig-input {margin-bottom: 5px;	width: auto; padding: 0.3em;}
 		.select-address {width: 600px;}
 		.sig-inputs-wrapper {}
-		.sig-preview {}
+		.sig-preview {margin: -25px 0 10px;}
 		.sig-source {padding: 0.3em; margin: 0; font-size: 11px; font-family: courier new, monospace;}
 		hr {border: 0; border-top: 1px solid #ddd; margin: 20px 0 0;}
 		textarea {width: 100%; height: 120px; border: 1px solid #ddd; outline: none; box-sizing: border-box;}
@@ -33,10 +33,11 @@
 		.copy-success {color: forestgreen; display: inline-block; margin-left: 10px; visibility: hidden; opacity: 0; transition: opacity 0.5s, visibility 0.5s;}
 		.copy-success.visible {opacity: 1; visibility: visible; transition-duration: 0s;}
 		.if-zeroclipboard-enabled {display: none;}
-		a {color: #003e74; text-decoration: none;}
+		a, a:hover {color: #003e74; text-decoration: none;}
+		footer a {text-decoration: underline;}
 		footer {color: #999; clear: both; margin: 30px 0;}
 		.credits {}
-		.github {float: right;}
+		.footer-links {float: right;}
 	</style>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
 	<script>
@@ -375,7 +376,8 @@
 	</section><!-- /.content-box -->
 
 		<footer>
-			<span class="credits">Hastily assembled by <a href="https://github.com/nigelzor">Neil Gentleman</a> and <a href="https://github.com/tylerfawcett">Tyler Fawcett</a>.</span>
+			<span class="credits">The <a href="https://github.com/pulseenergy/enernoc-email-signature-generator"> EnerNOC email signature generator</a> was hastily assembled by <a href="https://github.com/nigelzor"> Neil Gentleman</a> and <a href="https://github.com/tylerfawcett"> Tyler Fawcett</a>.</span>
+			<span class="footer-links"></span>
 		</footer>
 
 </div>
