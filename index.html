@@ -105,7 +105,7 @@
 						output[name].href = 'tel:' + encodeURIComponent(text);
 					}
 					if (input[name].type === 'email') {
-						output[name].href = 'sendto:' + text;
+						output[name].href = 'mailto:' + text;
 					}
 					if (placeholder && input[name].getAttribute('placeholder') !== text) {
 						input[name].setAttribute('placeholder', text);
